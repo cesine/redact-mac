@@ -36,7 +36,7 @@ git filter-branch -f --tree-filter '
         # Replacing text in files using any regex in perl
         if [ -f "$file" ]
         then
-            echo "\n  Replacing text in $file";
+            echo "\n  Replacing regex in $file";
             perl -pi -e "
             s/(bleeding|blood)/BLOOD/gi
             " "$file"
@@ -49,10 +49,25 @@ git filter-branch -f --tree-filter '
         # Renaming files/directories
         if [[ $file =~ ^.*symp.*$ ]]
         then
-          redacted=`echo $file | perl -lne "s/symp/symptom/g; print;"`;
-          echo "\n  Renaming $file to $redacted";
-          git mv "$file" "$redacted"
+            echo
+            redacted=`echo $file | perl -lne "s/symp/symptom/g; print;"`;
+            redactedPath=`echo $redacted | perl -lne "s/\/[^\/]*$//; print;"`;
+
+            if [ -d "$file" ]
+            then
+                echo "$file is a directory"
+            else
+                # tree
+                echo "\n $file is a file"
+                echo "  for $file making directories $redactedPath"
+                mkdir -p $redactedPath
+                echo "  Renaming $file to $redacted";
+                git mv "$file" "$redacted"
+                # tree
+            fi
+
         fi
+
     done
 
 ' --tag-name-filter cat -- --all

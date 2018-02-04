@@ -4,7 +4,7 @@
 ls SymptomOntology && rm -rf SymptomOntology
 
 # fetch a sample repo with a bit of history
-git clone https://github.com/DiseaseOntology/SymptomOntology.git
+git clone https://github.com/cesine/SymptomOntology.git
 cd SymptomOntology
 
 # View the history before
