@@ -3,6 +3,10 @@ os:
   - osx
   - linux
 
+matrix:
+  allow_failures:
+    - os: linux
+
 addons:
   apt:
     packages:
