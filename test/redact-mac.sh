@@ -1,21 +1,26 @@
 #!/bin/bash
 
-# clean up
+# clean up from any previous runs
 ls SymptomOntology && rm -rf SymptomOntology
 
-# fetch
+# fetch a sample repo with a bit of history
 git clone https://github.com/DiseaseOntology/SymptomOntology.git
 cd SymptomOntology
-git remote rm origin
-git log -1
 
-# run
+# View the history before
+git log
+
+# run redact examples
 cd ../SymptomOntology
 bash ../redact-mac.sh
 
+echo ""
 echo "-----------------------------========================================-----------------------------"
 echo "-----------------------------                 RESULT                 -----------------------------"
 echo "-----------------------------========================================-----------------------------"
+
+# View the history after
+git log
 
 TESTFAILED=0;
 TESTSFAILEDSTRING="";

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Remove as many refs as possible
+git remote -v
+git remote rm origin
+git branch -a
+
 # Example Clean binary/log files
 echo -e "Cleaning files (for example binary or temp files which shouldnt be in the repo)"
 git filter-branch --force --index-filter \
@@ -28,7 +33,7 @@ git filter-branch -f --tree-filter '
     find . | while read file
     do
 
-        # Replacing text in files
+        # Replacing text in files using any regex in perl
         if [ -f "$file" ]
         then
             echo "\n  Replacing text in $file";

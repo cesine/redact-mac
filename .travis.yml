@@ -1,0 +1,14 @@
+language: generic
+os:
+  - osx
+  - linux
+
+addons:
+  apt:
+    packages:
+      - tree
+
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install tree          ; fi
+
+script: ./test/redact-mac.sh
