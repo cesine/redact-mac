@@ -34,6 +34,9 @@ git log | grep "gmail.com" -c && { TESTSFAILEDSTRING="$TESTSFAILEDSTRING \n  ❌
 # Test filename replacement
 tree | grep symp.owl -c && { TESTSFAILEDSTRING="$TESTSFAILEDSTRING \n  ❌ File rename: failed"; TESTFAILED=$[TESTFAILED + 1]; } || echo "  ✓ File rename: success"
 
+# Test commit messages
+git log --all --grep="symptoms" | grep "symptoms" -c && { TESTSFAILEDSTRING="$TESTSFAILEDSTRING \n  ❌ Commit text replacement: failed"; TESTFAILED=$[TESTFAILED + 1]; } || echo "  ✓ Commit text replacement: success"
+
 # Test text replacement
 grep "bleeding" *.owl -c && { TESTSFAILEDSTRING="$TESTSFAILEDSTRING \n  ❌ Grouped text replacement: failed"; TESTFAILED=$[TESTFAILED + 1]; } || echo "  ✓ Grouped text replacement: success"
 

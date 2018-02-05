@@ -24,6 +24,13 @@ git filter-branch -f --env-filter 'if [ "$GIT_AUTHOR_EMAIL" = "lynn.schriml@gmai
      GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL;
      GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"; fi' -- --all
 
+
+git filter-branch -f --msg-filter '
+    sed "
+    s/symp/SYMP/g
+    "
+' -- --all
+
 # Example clean text in files or filenames
 # Using perl instead of sed  (sed on BSD/mac doesnt support those options)
 # Based on https://devsector.wordpress.com/2014/10/05/advanced-git-branch-filtering/#tree-filter
@@ -71,3 +78,6 @@ git filter-branch -f --tree-filter '
     done
 
 ' --tag-name-filter cat -- --all
+
+
+git gc
